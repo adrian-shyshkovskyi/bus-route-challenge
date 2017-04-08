@@ -21,7 +21,6 @@ public class Application {
 
     @Bean
     Routes getRoutes(@Value("${filePath}") String filePath) throws IOException {
-        System.out.println("Started processing");
         return new RoutesReader().readRoutes(filePath);
     }
 }
