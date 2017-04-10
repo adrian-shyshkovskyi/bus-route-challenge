@@ -1,6 +1,9 @@
 package com.goeuro.io;
 
+import com.goeuro.constants.MessageConstants;
+import com.goeuro.exception.WrongFormatException;
 import com.goeuro.model.Routes;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -20,11 +23,22 @@ public class RoutesReader {
      *
      * @param filePath path to a file containing routes data
      * @return a {@link Routes} instance
-     * @throws IOException if an IO error occured
+     * @throws IOException          if an IO error occured
+     * @throws WrongFormatException if file format is wrong
      */
-    public Routes readRoutes(String filePath) throws IOException {
+    public Routes readRoutes(String filePath) throws IOException, WrongFormatException {
+        if (StringUtils.isBlank(filePath)) {
+            throw new IllegalArgumentException(MessageConstants.INVALID_ARGUMENT_MESSAGE);
+        }
+
         Path path = FileSystems.getDefault().getPath(filePath);
-        return createRoutesFromFile(path);
+        Routes routes;
+        try {
+            routes = createRoutesFromFile(path);
+        } catch (NumberFormatException e) {
+            throw new WrongFormatException(MessageConstants.WRONG_FILE_FORMAT_MESSAGE, e);
+        }
+        return routes;
     };
 
     private static Routes createRoutesFromFile(Path path) throws IOException {

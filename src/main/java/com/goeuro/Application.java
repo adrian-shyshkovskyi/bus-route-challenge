@@ -1,5 +1,6 @@
 package com.goeuro;
 
+import com.goeuro.exception.WrongFormatException;
 import com.goeuro.io.RoutesReader;
 import com.goeuro.model.Routes;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +21,7 @@ public class Application {
     }
 
     @Bean
-    Routes getRoutes(@Value("${filePath}") String filePath) throws IOException {
+    Routes getRoutes(@Value("${filePath}") String filePath) throws IOException, WrongFormatException {
         return new RoutesReader().readRoutes(filePath);
     }
 }

@@ -1,5 +1,6 @@
 package com.goeuro.model;
 
+import com.goeuro.constants.MessageConstants;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.util.*;
@@ -17,6 +18,9 @@ public class Routes {
      * @param stationIdList list of bus station ids
      */
     public void addRoute(Integer routeId, List<Integer> stationIdList) {
+        if (routeId == null || stationIdList == null) {
+            throw new IllegalArgumentException(MessageConstants.INVALID_ROUTE_DATA_MESSAGE);
+        }
         for (int stationId : stationIdList) {
             List<Integer> routeIdList = getRoutesByStation(stationId);
             routeIdList.add(routeId);
