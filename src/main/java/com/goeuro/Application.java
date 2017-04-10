@@ -1,6 +1,6 @@
 package com.goeuro;
 
-import com.goeuro.factory.RoutesReader;
+import com.goeuro.io.RoutesReader;
 import com.goeuro.model.Routes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
